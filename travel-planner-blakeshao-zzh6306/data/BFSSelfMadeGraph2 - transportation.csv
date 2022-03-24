@@ -1,0 +1,6 @@
+origin,destination,type,price,duration
+A,B,train,13,80
+B,C,bus,7,150
+C,D,train,13,80
+B,E,bus,7,150
+E,D,bus,7,150
