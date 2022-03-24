@@ -66,9 +66,9 @@ public class TravelController implements ITravelController<City, Transport> {
         };
 
         Function<Map<String, String>, Void> addTransportation = map -> {
-            City origin = new City(map.get("origin"));
+            City origin = this.graph.getVertex(map.get("origin"));
             System.out.println(map.get("type"));
-            this.graph.addEdge(origin, new Transport(origin, new City(map.get("destination")),
+            this.graph.addEdge(origin, new Transport(origin, this.graph.getVertex(map.get("destination")),
                     TransportType.fromString(map.get("type")), Double.parseDouble(map.get("price")),
                     Double.parseDouble(map.get("duration"))));
             return null; // need explicit return null to account for Void type
