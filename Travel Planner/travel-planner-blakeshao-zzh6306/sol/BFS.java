@@ -24,25 +24,27 @@ public class BFS<V, E> implements IBFS<V, E> {
     @Override
     public List<E> getPath(IGraph<V, E> graph, V start, V end) {
         LinkedList<V> toCheck = new LinkedList<>();
-        HashSet<V> visited = new HashSet<>();
+        HashSet<String> visited = new HashSet<>();
         HashMap<String, E> cameFrom = new HashMap<>();
         toCheck.add(start);
         LinkedList<E> result = new LinkedList<>();
         while(!toCheck.isEmpty()){
             V vertex = toCheck.removeFirst();
-
+            System.out.println(vertex);
             if(vertex.toString().equals(end.toString())){
                 result = (LinkedList<E>) this.backTrack(cameFrom, start, end, graph);
+                break;
             }
-            visited.add(vertex);
+            visited.add(vertex.toString());
+            System.out.println(visited);
             for(E edge: graph.getOutgoingEdges(vertex)){
                 V target = graph.getEdgeTarget(edge);
-                if(!visited.contains(target)){
+                if(!visited.contains(target.toString()) && !cameFrom.containsKey(target.toString())){
                     toCheck.addLast(target);
                     cameFrom.put(target.toString(), edge);
                 }
             }
-
+            System.out.println(cameFrom);
         }
         return result;
     }
